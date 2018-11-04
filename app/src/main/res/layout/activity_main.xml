@@ -9,5 +9,11 @@
         android:id="@+id/panic_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/panic_button"/>
+        android:text="@string/panic_button" />
+
+    <Button
+        android:id="@+id/history_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/history_button" />
 </LinearLayout>

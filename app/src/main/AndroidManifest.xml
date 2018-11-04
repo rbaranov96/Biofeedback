@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".VisualizeActivity" />
-        <activity android:name=".QuestionaireActivity"></activity>
+        <activity android:name=".QuestionaireActivity" />
+        <activity android:name=".HistoryActivity"></activity>
     </application>
 
 </manifest>
