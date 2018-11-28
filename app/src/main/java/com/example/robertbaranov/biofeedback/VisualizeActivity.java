@@ -50,7 +50,24 @@ public class VisualizeActivity extends AppCompatActivity {
         GraphView graph = (GraphView) findViewById(R.id.graph);
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {new DataPoint(1,1)});
         graph.addSeries(series);
+        // set manual X bounds
+        graph.getViewport().setXAxisBoundsManual(true);
+        graph.getViewport().setMinX(0);
+        graph.getViewport().setMaxX(10);
+
+        // set manual Y bounds
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getViewport().setMinY(0);
+        graph.getViewport().setMaxY(30);
+
+
+        series.appendData(new DataPoint(2,3),true,100);
         series.appendData(new DataPoint(3,3),true,100);
+        series.appendData(new DataPoint(4,7),true,100);
+        series.appendData(new DataPoint(10,17),true,100);
+
+        graph.getViewport().scrollToEnd();
+
         //for (int i=0;i<50;++i){
         //    series.appendData(new DataPoint(i,i),true,100);
         //}
