@@ -34,13 +34,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        context = getApplicationContext();
-        preview = (SurfaceView) findViewById(R.id.preview);
-        previewHolder = preview.getHolder();
-        previewHolder.addCallback(surfaceCallback);
-        previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "DoNotDimScreen");
+
 
     }
     @Override
@@ -135,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 //                    processing.set(false);
 //                    return;
 //                }
-                //				Log.e(TAG, "totalTimeInSecs=" + totalTimeInSecs + " beats="+ beats);
+            //				Log.e(TAG, "totalTimeInSecs=" + totalTimeInSecs + " beats="+ beats);
 //                if (beatsIndex == beatsArraySize)
 //                    beatsIndex = 0;
 //                beatsArray[beatsIndex] = dpm;
