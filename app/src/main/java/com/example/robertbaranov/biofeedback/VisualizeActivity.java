@@ -72,6 +72,7 @@ public class VisualizeActivity extends AppCompatActivity {
         //    series.appendData(new DataPoint(i,i),true,100);
         //}
     }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -235,7 +236,4 @@ public class VisualizeActivity extends AppCompatActivity {
         }
         return result;
     }
-
-
-
 }
