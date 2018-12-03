@@ -33,8 +33,6 @@ public class VisualizeActivity extends AppCompatActivity {
     private static TextView text = null;
     private static String beatsPerMinuteValue="";
     private static PowerManager.WakeLock wakeLock = null;
-
-
     private static TextView mTxtVwStopWatch;
     private static int averageIndex = 0;
     private static final int averageArraySize = 4;
@@ -47,16 +45,17 @@ public class VisualizeActivity extends AppCompatActivity {
     };
 
     private static TYPE currentType = TYPE.GREEN;
-
     public static TYPE getCurrent() {
         return currentType;
     }
-
     private static int beatsIndex = 0;
     private static final int beatsArraySize = 3;
     private static final int[] beatsArray = new int[beatsArraySize];
     private static double beats = 0;
     private static long startTime = 0;
+    GraphView graph = (GraphView) findViewById(R.id.graph);
+    static LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {new DataPoint(1,1)});
+
 
     /**
      * {@inheritDoc}
@@ -93,10 +92,8 @@ public class VisualizeActivity extends AppCompatActivity {
             }
         });
 
-        GraphView graph = (GraphView) findViewById(R.id.graph);
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {new DataPoint(1,1)});
         graph.addSeries(series);
-        series.appendData(new DataPoint(3,3),true,100);
+        //series.appendData(new DataPoint(3,3),true,100);
         //for (int i=0;i<50;++i){
         //    series.appendData(new DataPoint(i,i),true,100);
         //}
@@ -220,6 +217,9 @@ public class VisualizeActivity extends AppCompatActivity {
                 int beatsAvg = (beatsArrayAvg / beatsArrayCnt);
 
                 text.setText(String.valueOf(beatsAvg));
+                int j=2;
+                series.appendData(new DataPoint(j,beatsAvg),true,100);
+                j+=1;
                 beatsPerMinuteValue=String.valueOf(beatsAvg);
 
 
