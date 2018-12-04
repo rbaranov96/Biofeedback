@@ -19,6 +19,7 @@
         <activity android:name=".VisualizeActivity"></activity>
         <activity android:name=".QuestionaireActivity"></activity>
         <activity android:name=".HistoryActivity"></activity>
+        <activity android:name=".ViewHistoryActivity"></activity>
 
     </application>
     <uses-permission android:name="android.permission.WAKE_LOCK" />
