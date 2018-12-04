@@ -5,4 +5,7 @@
     <string name="submit_button">Submit</string>
     <string name="history_button">History</string>
     <string name='history_done_button'>Done</string>
+    <string name="question1">What were you thinking about before your panic attack?</string>
+    <string name="question2">What were you doing right before your panic attack?</string>
+    <string name="question3">Where were you when your panic attack started?</string>
 </resources>
