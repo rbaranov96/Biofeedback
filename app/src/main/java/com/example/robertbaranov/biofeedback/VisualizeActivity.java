@@ -3,6 +3,7 @@ package com.example.robertbaranov.biofeedback;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.hardware.Camera;
 import android.hardware.Camera;
 import android.os.PowerManager;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -53,9 +55,10 @@ public class VisualizeActivity extends AppCompatActivity {
     private static final int[] beatsArray = new int[beatsArraySize];
     private static double beats = 0;
     private static long startTime = 0;
-    GraphView graph = (GraphView) findViewById(R.id.graph);
-    static LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {new DataPoint(1,1)});
-
+    private static LineGraphSeries<DataPoint> series;
+    private static GraphView graph;
+    static int measurementInterval = 10;
+    static Viewport styling;
 
     /**
      * {@inheritDoc}
@@ -91,12 +94,36 @@ public class VisualizeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        graph = (GraphView) findViewById(R.id.graph);
+        series = new LineGraphSeries<>(new DataPoint[] {new DataPoint(0,0)});
 
+
+        series.setColor(Color.RED);
+        //series.setDrawDataPoints(true);
+        //series.setDataPointsRadius(10);
+        series.setThickness(16);
         graph.addSeries(series);
-        //series.appendData(new DataPoint(3,3),true,100);
-        //for (int i=0;i<50;++i){
-        //    series.appendData(new DataPoint(i,i),true,100);
-        //}
+
+
+        graph.getViewport().setXAxisBoundsManual(true);
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.setTitle("Heartrate over time");
+        styling = graph.getViewport();
+        styling.setMinX((double)0);
+        styling.setMaxX((double)20);
+        styling.setMinY((double)20);
+        styling.setMaxY((double)210);
+
+
+        //styling.isScrollable();
+
+
+
+//        series.appendData(new DataPoint(2,3),true,100);
+//        series.appendData(new DataPoint(3,2),true,100);
+//        for (int i=0;i<50;++i){
+//            series.appendData(new DataPoint(i,i),true,100);
+//        }
     }
     /**
      * {@inheritDoc}
@@ -217,9 +244,11 @@ public class VisualizeActivity extends AppCompatActivity {
                 int beatsAvg = (beatsArrayAvg / beatsArrayCnt);
 
                 text.setText(String.valueOf(beatsAvg));
-                int j=2;
-                series.appendData(new DataPoint(j,beatsAvg),true,100);
-                j+=1;
+                measurementInterval+=10;
+                series.appendData(new DataPoint(measurementInterval,beatsAvg),true,measurementInterval);
+                styling.setMaxX((double)measurementInterval);
+                //
+                // styling.setMinX((double)0);
                 beatsPerMinuteValue=String.valueOf(beatsAvg);
 
 
