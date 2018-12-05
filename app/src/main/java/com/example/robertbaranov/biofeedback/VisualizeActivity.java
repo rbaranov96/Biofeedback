@@ -19,6 +19,9 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
@@ -59,6 +62,8 @@ public class VisualizeActivity extends AppCompatActivity {
     private static GraphView graph;
     static int measurementInterval = 10;
     static Viewport styling;
+    private static List<Integer> heartRateData = new ArrayList<Integer>();
+    private static List<Integer> feelingData = new ArrayList<Integer>();
 
     /**
      * {@inheritDoc}
@@ -128,7 +133,6 @@ public class VisualizeActivity extends AppCompatActivity {
         public void onStopTrackingTouch(SeekBar seekBar) {
             // called after the user finishes moving the SeekBar
             tvProgressLabel.setVisibility(View.INVISIBLE);
-
             seekBar.setVisibility(View.INVISIBLE);
         }
     };
@@ -244,6 +248,7 @@ public class VisualizeActivity extends AppCompatActivity {
                 int beatsAvg = (beatsArrayAvg / beatsArrayCnt);
 
                 text.setText(String.valueOf(beatsAvg));
+                heartRateData.add(beatsAvg);
                 measurementInterval+=10;
                 series.appendData(new DataPoint(measurementInterval,beatsAvg),true,measurementInterval);
                 styling.setMaxX((double)measurementInterval);
@@ -251,12 +256,11 @@ public class VisualizeActivity extends AppCompatActivity {
                     // EVERY MINUTE ASK HOW THEY FEEL 1-10
                     tvProgressLabel.setVisibility(View.VISIBLE);
                     seekBar.setVisibility(View.VISIBLE);
+                    feelingData.add(seekBar.getProgress());
                 }
                 //
                 // styling.setMinX((double)0);
                 beatsPerMinuteValue=String.valueOf(beatsAvg);
-
-
                 startTime = System.currentTimeMillis();
                 beats = 0;
             }
