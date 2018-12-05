@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.hardware.Camera;
-import android.hardware.Camera;
 import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -65,26 +64,32 @@ public class VisualizeActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visualize);
-
-
-
-
         preview = (SurfaceView) findViewById(R.id.preview);
         previewHolder = preview.getHolder();
-
         previewHolder.addCallback(surfaceCallback);
         previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-
         image = findViewById(R.id.image);
         text = (TextView) findViewById(R.id.text);
-
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "DoNotDimScreen");
-
-
+        graph = (GraphView) findViewById(R.id.graph);
+        series = new LineGraphSeries<>(new DataPoint[] {new DataPoint(0,0)});
+        series.setColor(Color.RED);
+        //series.setDrawDataPoints(true);
+        //series.setDataPointsRadius(10);
+        series.setThickness(16);
+        graph.addSeries(series);
+        graph.getViewport().setXAxisBoundsManual(true);
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.setTitle("Heartrate over time");
+        styling = graph.getViewport();
+        styling.setMinX((double)0);
+        styling.setMaxX((double)20);
+        styling.setMinY((double)20);
+        styling.setMaxY((double)210);
+        //styling.isScrollable();
         mQuestionButton = (Button)findViewById(R.id.question_button);
         mQuestionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,36 +99,6 @@ public class VisualizeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        graph = (GraphView) findViewById(R.id.graph);
-        series = new LineGraphSeries<>(new DataPoint[] {new DataPoint(0,0)});
-
-
-        series.setColor(Color.RED);
-        //series.setDrawDataPoints(true);
-        //series.setDataPointsRadius(10);
-        series.setThickness(16);
-        graph.addSeries(series);
-
-
-        graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setYAxisBoundsManual(true);
-        graph.setTitle("Heartrate over time");
-        styling = graph.getViewport();
-        styling.setMinX((double)0);
-        styling.setMaxX((double)20);
-        styling.setMinY((double)20);
-        styling.setMaxY((double)210);
-
-
-        //styling.isScrollable();
-
-
-
-//        series.appendData(new DataPoint(2,3),true,100);
-//        series.appendData(new DataPoint(3,2),true,100);
-//        for (int i=0;i<50;++i){
-//            series.appendData(new DataPoint(i,i),true,100);
-//        }
     }
     /**
      * {@inheritDoc}
@@ -150,9 +125,7 @@ public class VisualizeActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-
         wakeLock.release();
-
         camera.setPreviewCallback(null);
         camera.stopPreview();
         camera.release();
@@ -161,7 +134,6 @@ public class VisualizeActivity extends AppCompatActivity {
     }
 
     private static Camera.PreviewCallback previewCallback = new Camera.PreviewCallback() {
-
         /**
          * {@inheritDoc}
          */
@@ -170,19 +142,15 @@ public class VisualizeActivity extends AppCompatActivity {
             if (data == null) throw new NullPointerException();
             Camera.Size size = cam.getParameters().getPreviewSize();
             if (size == null) throw new NullPointerException();
-
             if (!processing.compareAndSet(false, true)) return;
-
             int width = size.width;
             int height = size.height;
-
             int imgAvg = ImageProcessing.decodeYUV420SPtoRedAvg(data.clone(), height, width);
             // Log.i(TAG, "imgAvg="+imgAvg);
             if (imgAvg == 0 || imgAvg == 255) {
                 processing.set(false);
                 return;
             }
-
             int averageArrayAvg = 0;
             int averageArrayCnt = 0;
             for (int i = 0; i < averageArray.length; i++) {
@@ -259,8 +227,6 @@ public class VisualizeActivity extends AppCompatActivity {
         }
     };
 
-
-
     private static SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() {
 
         /**
@@ -320,9 +286,6 @@ public class VisualizeActivity extends AppCompatActivity {
 
         return result;
     }
-
-
-
 //    private static void prepareCountDownTimer(){
 //        mTxtVwStopWatch.setText("---");
 //        new CountDownTimer(10000, 1000) {
@@ -336,16 +299,4 @@ public class VisualizeActivity extends AppCompatActivity {
 //            }
 //        }.start();
 //    }
-
-
-
-
-
-
-
-
-
-
-
-
 }
