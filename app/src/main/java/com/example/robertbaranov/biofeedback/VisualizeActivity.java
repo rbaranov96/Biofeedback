@@ -13,13 +13,12 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
-
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
@@ -40,6 +39,7 @@ public class VisualizeActivity extends AppCompatActivity {
     private static final int[] averageArray = new int[averageArraySize];
     private static String strSavedDoctorID="";
     private static Context parentReference = null;
+    private static TextView tvProgressLabel;
 
     public static enum TYPE {
         GREEN, RED
@@ -99,7 +99,33 @@ public class VisualizeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        SeekBar seekBar = findViewById(R.id.seekBar);
+        seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
+
+        int progress = seekBar.getProgress();
+        tvProgressLabel = findViewById(R.id.textView);
+        tvProgressLabel.setText("How are you feeling right now? " + progress);
+        tvProgressLabel.setVisibility(View.INVISIBLE);
     }
+    SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            // updated continuously as the user slides the thumb
+            tvProgressLabel.setText("How are you feeling right now? " + progress);
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+            // called when the user first touches the SeekBar
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            // called after the user finishes moving the SeekBar
+            tvProgressLabel.setVisibility(View.INVISIBLE);
+        }
+    };
     /**
      * {@inheritDoc}
      */
@@ -203,9 +229,9 @@ public class VisualizeActivity extends AppCompatActivity {
 
                 int beatsArrayAvg = 0;
                 int beatsArrayCnt = 0;
-                for (int i = 0; i < beatsArray.length; i++) {
-                    if (beatsArray[i] > 0) {
-                        beatsArrayAvg += beatsArray[i];
+                for (int aBeatsArray : beatsArray) {
+                    if (aBeatsArray > 0) {
+                        beatsArrayAvg += aBeatsArray;
                         beatsArrayCnt++;
                     }
                 }
@@ -215,6 +241,10 @@ public class VisualizeActivity extends AppCompatActivity {
                 measurementInterval+=10;
                 series.appendData(new DataPoint(measurementInterval,beatsAvg),true,measurementInterval);
                 styling.setMaxX((double)measurementInterval);
+                if (measurementInterval/6%10==0){
+                    // EVERY MINUTE ASK HOW THEY FEEL 1-10
+                    tvProgressLabel.setVisibility(View.VISIBLE);
+                }
                 //
                 // styling.setMinX((double)0);
                 beatsPerMinuteValue=String.valueOf(beatsAvg);
