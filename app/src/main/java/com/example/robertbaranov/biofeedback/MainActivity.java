@@ -9,6 +9,7 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
     private Button mPanicButton;
     private Button mHistoryButton;
+    private Button mQuestionnaireButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

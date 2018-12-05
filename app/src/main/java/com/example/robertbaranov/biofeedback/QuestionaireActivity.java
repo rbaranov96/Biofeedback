@@ -14,7 +14,6 @@ import java.io.FileOutputStream;
 import android.util.Log;
 
 public class QuestionaireActivity extends AppCompatActivity {
-    private Button mSubmitButton;
     EditText ed1;
     String data1;
     private Button mNextButton;
@@ -49,30 +48,36 @@ public class QuestionaireActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 data1=ed1.getText().toString();
-                try {
-                    FileOutputStream fOut = openFileOutput(file,MODE_APPEND);
-                    fOut.write(data1.getBytes());
-                    fOut.close();
+                if (mCurrentIndex < 2 ) {
+                    try {
+                        FileOutputStream fOut = openFileOutput(file, MODE_APPEND);
+                        fOut.write(data1.getBytes());
+                        fOut.close();
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
+                    updateQuestion();
+                    ed1.setText("");
                 }
-                catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
-                updateQuestion();
-                ed1.setText("");
-            } });
-        updateQuestion();
+                else {
 
-        mSubmitButton = (Button)findViewById(R.id.submit_button);
-        mSubmitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(QuestionaireActivity.this, MainActivity.class);
-                startActivity(intent);
-                Toast.makeText(getBaseContext(),"Submitted",Toast.LENGTH_SHORT).show();
-            }
-        });
+                    try {
+                        FileOutputStream fOut = openFileOutput(file, MODE_APPEND);
+                        fOut.write(data1.getBytes());
+                        fOut.close();
+                        } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        Intent intent = new Intent(QuestionaireActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        Toast.makeText(getBaseContext(),"Submitted",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+            });
+        //updateQuestion();
 
     }
     private void updateQuestion() {
