@@ -1,5 +1,6 @@
 package com.example.robertbaranov.biofeedback;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -20,6 +21,7 @@ import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -64,10 +66,12 @@ public class VisualizeActivity extends AppCompatActivity {
     static Viewport styling;
     private static List<Integer> heartRateData = new ArrayList<Integer>();
     private static List<Integer> feelingData = new ArrayList<Integer>();
+    private String file = "history.csv";
 
     /**
      * {@inheritDoc}
      */
+    @SuppressLint("InvalidWakeLockTag")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +104,15 @@ public class VisualizeActivity extends AppCompatActivity {
         mQuestionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                try {
+                    FileOutputStream fOut = openFileOutput(file, MODE_APPEND);
+                    fOut.write(heartRateData.toString().getBytes());
+                    fOut.write(feelingData.toString().getBytes());
+                    fOut.close();
+                }  catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
                 Intent intent = new Intent(VisualizeActivity.this, QuestionaireActivity.class);
                 startActivity(intent);
             }

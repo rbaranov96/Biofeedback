@@ -18,7 +18,7 @@ public class QuestionaireActivity extends AppCompatActivity {
     String data1;
     private Button mNextButton;
     private TextView mQuestionTextView;
-    private String file = "history.txt";
+    private String file = "history.csv";
     private Question[] mQuestionBank = new Question[] {
             new Question(R.string.question1),
             new Question(R.string.question2),
