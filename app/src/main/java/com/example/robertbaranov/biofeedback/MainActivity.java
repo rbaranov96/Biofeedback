@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mPanicButton = (Button)findViewById(R.id.panic_button);
         mPanicButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,12 +31,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
     }
-
-
-
 }
