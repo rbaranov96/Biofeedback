@@ -40,6 +40,7 @@ public class VisualizeActivity extends AppCompatActivity {
     private static String strSavedDoctorID="";
     private static Context parentReference = null;
     private static TextView tvProgressLabel;
+    private static SeekBar seekBar;
 
     public static enum TYPE {
         GREEN, RED
@@ -99,20 +100,23 @@ public class VisualizeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        SeekBar seekBar = findViewById(R.id.seekBar);
+        seekBar = findViewById(R.id.seekBar);
         seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
 
         int progress = seekBar.getProgress();
         tvProgressLabel = findViewById(R.id.textView);
         tvProgressLabel.setText("How are you feeling right now? " + progress);
         tvProgressLabel.setVisibility(View.INVISIBLE);
+        seekBar.setVisibility(View.INVISIBLE);
     }
     SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
 
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             // updated continuously as the user slides the thumb
+
             tvProgressLabel.setText("How are you feeling right now? " + progress);
+
         }
 
         @Override
@@ -124,6 +128,8 @@ public class VisualizeActivity extends AppCompatActivity {
         public void onStopTrackingTouch(SeekBar seekBar) {
             // called after the user finishes moving the SeekBar
             tvProgressLabel.setVisibility(View.INVISIBLE);
+
+            seekBar.setVisibility(View.INVISIBLE);
         }
     };
     /**
@@ -241,9 +247,10 @@ public class VisualizeActivity extends AppCompatActivity {
                 measurementInterval+=10;
                 series.appendData(new DataPoint(measurementInterval,beatsAvg),true,measurementInterval);
                 styling.setMaxX((double)measurementInterval);
-                if (measurementInterval/6%10==0){
+                if (measurementInterval/1%10==0){
                     // EVERY MINUTE ASK HOW THEY FEEL 1-10
                     tvProgressLabel.setVisibility(View.VISIBLE);
+                    seekBar.setVisibility(View.VISIBLE);
                 }
                 //
                 // styling.setMinX((double)0);
