@@ -10,10 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class ViewHistoryActivity extends AppCompatActivity{
-
     private Button mDoneButton;
     private TextView mDisplayHistory;
-
     private String mHistoryText;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +22,7 @@ public class ViewHistoryActivity extends AppCompatActivity{
         mDoneButton = (Button)findViewById(R.id.history_done_button);
 
 
-        mHistoryText = new String("Panic Attack: ");
+        mHistoryText = "Panic Attack: ";
         mDisplayHistory.setText(mHistoryText);
 
         /* TODO: get String/JSON object from disk, replace this dummy data */

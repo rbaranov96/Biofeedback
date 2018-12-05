@@ -85,7 +85,7 @@ public class VisualizeActivity extends AppCompatActivity {
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "DoNotDimScreen");
         graph = (GraphView) findViewById(R.id.graph);
-        series = new LineGraphSeries<>(new DataPoint[] {new DataPoint(0,0)});
+        series = new LineGraphSeries<>(new DataPoint[] {new DataPoint(0,60)});
         series.setColor(Color.RED);
         //series.setDrawDataPoints(true);
         //series.setDataPointsRadius(10);
@@ -98,7 +98,7 @@ public class VisualizeActivity extends AppCompatActivity {
         styling.setMinX((double)0);
         styling.setMaxX((double)20);
         styling.setMinY((double)20);
-        styling.setMaxY((double)210);
+        styling.setMaxY((double)180);
         //styling.isScrollable();
         mQuestionButton = (Button)findViewById(R.id.question_button);
         mQuestionButton.setOnClickListener(new View.OnClickListener() {
