@@ -104,6 +104,7 @@ public class VisualizeActivity extends AppCompatActivity {
                 Intent intent = new Intent(VisualizeActivity.this, QuestionaireActivity.class);
                 startActivity(intent);
             }
+
         });
         seekBar = findViewById(R.id.seekBar);
         seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
