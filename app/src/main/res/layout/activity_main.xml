@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:gravity="center"
-android:orientation="vertical" >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fadingEdge="none|horizontal"
+    android:gravity="center"
+    android:orientation="vertical">
 
-<Button
-    android:id="@+id/panic_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/panic_button" />
+    <Button
+        android:id="@+id/panic_button"
+        android:layout_width="261dp"
+        android:layout_height="115dp"
+        android:textSize="12pt"
+        android:background="@android:color/holo_blue_light"
+        android:text="@string/panic_button"
+        android:textColor="@android:color/background_light"
+        />
 
-<Button
-    android:id="@+id/history_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/history_button" />
+    <Button
+        android:id="@+id/history_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/history_button"
+        android:layout_gravity="center"
+        android:textColor="@android:color/background_light"
+        tools:background="@android:color/darker_gray" />
+
 </LinearLayout>
