@@ -12,18 +12,20 @@
             android:layout_width="match_parent"
             android:layout_height="200dip"
             android:id="@+id/graph" />
+
         <TextView
             android:id="@+id/textView"
             android:layout_margin="20dp"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <SeekBar
             android:id="@+id/seekBar"
-            android:max="10"
-            android:progress="5"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="70dp"
+            android:max="100"
+            android:progress="50" />
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -34,23 +36,27 @@
 
         <TextView
             android:id="@+id/text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
             android:text="Waiting 10 seconds for input..." />
 
         <SurfaceView
 
             android:id="@+id/preview"
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            android:layout_gravity="center" />
 
 
         <Button
             android:id="@+id/question_button"
-            android:layout_width="wrap_content"
+            android:layout_width="123dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:text="@string/question_button" />
+            android:background="@android:color/holo_blue_light"
+            android:text="@string/question_button"
+            android:textColor="@android:color/background_light" />
 
     </LinearLayout>
 
