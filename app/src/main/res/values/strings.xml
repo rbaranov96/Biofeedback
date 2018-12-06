@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Biofeedback</string>
-    <string name="panic_button">Panic!</string>
+    <string name="app_name">WePanic</string>
+    <string name="panic_button">Im Panicking.</string>
     <string name="question_button">Questionnaire</string>
     <string name="submit_button">Submit</string>
     <string name="history_button">History</string>
