@@ -265,7 +265,7 @@ public class VisualizeActivity extends AppCompatActivity {
                 measurementInterval+=10;
                 series.appendData(new DataPoint(measurementInterval,beatsAvg),true,measurementInterval);
                 styling.setMaxX((double)measurementInterval);
-                if (measurementInterval/1%10==0){
+                if (measurementInterval/6%10==0){
                     // EVERY MINUTE ASK HOW THEY FEEL 1-10
                     tvProgressLabel.setVisibility(View.VISIBLE);
                     seekBar.setVisibility(View.VISIBLE);
